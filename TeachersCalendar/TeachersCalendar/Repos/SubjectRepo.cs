@@ -17,7 +17,7 @@ namespace TeachersCalendar.Repos
         public static List<Subject> getSubjects()
         {
             List<Subject> list = new List<Subject>();
-            var query = "SELECT Id, Name FROM Subject;";
+            var query = "SELECT Id, Name, Description FROM Subject;";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
@@ -29,46 +29,60 @@ namespace TeachersCalendar.Repos
                     Subject subject = new Subject();
                     subject.Id = (int)(long)data["id"];
                     subject.Name = (string)data["Name"];
+                    subject.Description = (string)data["Description"];
                     list.Add(subject);
                 }
                 data.Close();
-                connection.Close();
             }
 
             return list;
         }
 
-        public void addSubject(Subject subject)
+        public static void addSubject(Subject subject)
         {
-            var query = "insert into Subject (Name) values (@name); SELECT last_insert_rowid();";
+            var query = "insert into Subject (Name, Description) values (@name, @description); SELECT last_insert_rowid();";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
                 var command = new SQLiteCommand(query, connection);
 
                 command.Parameters.AddWithValue("@name", subject.Name);
+                command.Parameters.AddWithValue("@description", subject.Description);
                 long id = (long)command.ExecuteScalar();
                 subject.Id = (int)id;
-                connection.Close();
             }
         }
 
-        public void updateSubject(Subject subject)
+        public static void updateSubject(Subject subject)
         {
-            var query = "UPDATE Subject SET Name = (@name) WHERE id = (@id);";
+            var query = "UPDATE Subject SET Name = (@name), Description = @description WHERE id = (@id);";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
                 var command = new SQLiteCommand(query, connection);
 
                 command.Parameters.AddWithValue("@id", subject.Id);
-                command.Parameters.AddWithValue("@firstname", subject.Name);
+                command.Parameters.AddWithValue("@name", subject.Name);
+                command.Parameters.AddWithValue("@description", subject.Description);
 
                 command.ExecuteScalar();
 
-                connection.Close();
             }
         }
+
+        public static void deleteSubject(Subject subject)
+        {
+            var query = "DELETE FROM Subject WHERE id = (@id);";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                var command = new SQLiteCommand(query, connection);
+
+                command.Parameters.AddWithValue("@id", subject.Id);
+                command.ExecuteNonQuery();
+            }
+        }
+
 
     }
 }

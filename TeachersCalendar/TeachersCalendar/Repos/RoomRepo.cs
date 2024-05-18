@@ -34,7 +34,6 @@ namespace TeachersCalendar.Repos
                     list.Add(room);
                 }
                 data.Close();
-                connection.Close();
             }
 
             return list;
@@ -42,7 +41,7 @@ namespace TeachersCalendar.Repos
 
         internal static void addRoom(Room room)
         {
-            var query = "INSERT INTO Room (Name, Capacity, HasComputers) values (@name, @capacity, @hascomputers);";// SELECT last_insert_rowid();";
+            var query = "INSERT INTO Room (Name, Capacity, HasComputers) values (@name, @capacity, @hascomputers); SELECT last_insert_rowid();";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
@@ -50,12 +49,42 @@ namespace TeachersCalendar.Repos
                 command.Parameters.AddWithValue("@name", room.Name);
                 command.Parameters.AddWithValue("@capacity", room.Capacity);
                 command.Parameters.AddWithValue("@hascomputers", room.HasComputers ? 1 : 0);
-                command.ExecuteNonQuery();
-                //long id = (long)command.ExecuteScalar();
-                //room.Id = (int)id;
                 
-                connection.Close();
+                long id = (long)command.ExecuteScalar();
+                room.Id = (int)id;
+                
             }
         }
+
+        public static void updateRoom(Room room)
+        {
+            var query = "UPDATE Room SET Name = @name, Capacity = @capacity, HasComputers = @hascomputers WHERE id = (@id);";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                var command = new SQLiteCommand(query, connection);
+
+                command.Parameters.AddWithValue("@id", room.Id);
+                command.Parameters.AddWithValue("@name", room.Name);
+                command.Parameters.AddWithValue("@capacity", room.Capacity);
+                command.Parameters.AddWithValue("@hascomputers", room.HasComputers ? 1 : 0);
+
+                command.ExecuteScalar();
+            }
+        }
+
+        public static void deleteRoom(Room room)
+        {
+            var query = "DELETE FROM Room WHERE id = (@id);";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                var command = new SQLiteCommand(query, connection);
+
+                command.Parameters.AddWithValue("@id", room.Id);
+                command.ExecuteNonQuery();
+            }
+        }
+
     }
 }

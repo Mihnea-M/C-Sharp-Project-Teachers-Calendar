@@ -20,11 +20,22 @@ namespace TeachersCalendar.EditForms
             InitializeComponent();
         }
 
+        public void editBtnText(string text)
+        {
+            this.cancelBtn.Text = text;
+        }
         private void okBtn_Click(object sender, EventArgs e)
         {
             Room.Name = nameTb.Text;
             Room.Capacity = (int)capacityNumUpDown.Value;
             Room.HasComputers = hasComputersCheckBox.Checked;
+        }
+
+        private void RoomForm_Load(object sender, EventArgs e)
+        {
+            nameTb.Text = Room.Name;
+            capacityNumUpDown.Value = Room.Capacity;
+            hasComputersCheckBox.Checked = Room.HasComputers;
         }
     }
 }
