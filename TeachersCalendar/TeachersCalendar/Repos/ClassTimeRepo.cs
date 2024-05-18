@@ -25,7 +25,7 @@ namespace TeachersCalendar.Repos
                 var data = command.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
                 data.Read();
                 long id = (long)data["Id"];
-                connection.Close();
+                data.Close();
                 return new ClassTime((int)id, dayIndex, timeIndex);
             }
         }

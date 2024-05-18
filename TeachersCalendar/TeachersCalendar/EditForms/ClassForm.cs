@@ -32,8 +32,8 @@ namespace TeachersCalendar.EditForms
         private void ClassForm_Load(object sender, EventArgs e)
         {
             this.headerLabel.Text = "Insert a new class at " + UniClass.ClassTime.getTime() + " on " + UniClass.ClassTime.getDay();
-            //loadRooms();
-            // loadSubjects();
+            loadRooms();
+            loadSubjects();
         }
 
         public void loadRooms()
