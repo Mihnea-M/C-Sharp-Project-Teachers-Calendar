@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.firstNameTB = new System.Windows.Forms.TextBox();
             this.lastNameTB = new System.Windows.Forms.TextBox();
             this.saveBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -60,6 +63,7 @@
             this.firstNameTB.Name = "firstNameTB";
             this.firstNameTB.Size = new System.Drawing.Size(166, 20);
             this.firstNameTB.TabIndex = 2;
+            this.firstNameTB.Validating += new System.ComponentModel.CancelEventHandler(this.firstNameTB_Validating);
             // 
             // lastNameTB
             // 
@@ -67,6 +71,7 @@
             this.lastNameTB.Name = "lastNameTB";
             this.lastNameTB.Size = new System.Drawing.Size(166, 20);
             this.lastNameTB.TabIndex = 3;
+            this.lastNameTB.Validating += new System.ComponentModel.CancelEventHandler(this.lastNameTB_Validating);
             // 
             // saveBtn
             // 
@@ -89,6 +94,10 @@
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // TeacherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -103,6 +112,7 @@
             this.Name = "TeacherForm";
             this.Text = "TeacherForm";
             this.Load += new System.EventHandler(this.TeacherForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -116,5 +126,6 @@
         private System.Windows.Forms.TextBox lastNameTB;
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

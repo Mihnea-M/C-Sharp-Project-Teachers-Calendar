@@ -31,5 +31,35 @@ namespace TeachersCalendar.EditForms
             firstNameTB.Text = Teacher.FirstName;
             lastNameTB.Text = Teacher.LastName;
         }
+
+        private void firstNameTB_Validating(object sender, CancelEventArgs e)
+        {
+            if (firstNameTB.Text.Length < 1 || firstNameTB.Text.Any(char.IsDigit))
+            {
+                e.Cancel = true;
+                errorProvider1.SetError((Control)sender, "Invalid name");
+
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.Clear();
+            }
+        }
+
+        private void lastNameTB_Validating(object sender, CancelEventArgs e)
+        {
+            if (lastNameTB.Text.Length < 1 || lastNameTB.Text.Any(char.IsDigit))
+            {
+                e.Cancel = true;
+                errorProvider1.SetError((Control)sender, "Invalid name");
+
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.Clear();
+            }
+        }
     }
 }

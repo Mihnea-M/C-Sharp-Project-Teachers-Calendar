@@ -7,6 +7,7 @@ using TeachersCalendar.Enums;
 
 namespace TeachersCalendar.Models
 {
+    [Serializable]
     public class ClassTime
     {
         public int Id { get; set; }
@@ -94,6 +95,11 @@ namespace TeachersCalendar.Models
         public string getDay()
         {
             return day.ToString();
+        }
+
+        public override string ToString()
+        {
+            return this.day + " at " + TimeIntervalAttribute.GetTimeInterval(time);
         }
     }
 }

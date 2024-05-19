@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TeachersCalendar.Models
 {
+    [Serializable]
     public class Teacher
     {
         public int Id { get; set; }

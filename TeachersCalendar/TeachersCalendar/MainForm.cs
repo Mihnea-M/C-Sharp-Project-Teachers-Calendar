@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TeachersCalendar.Enums;
 using TeachersCalendar.Models;
 using TeachersCalendar.Repos;
+using static System.Windows.Forms.LinkLabel;
 
 namespace TeachersCalendar
 {
@@ -66,10 +69,12 @@ namespace TeachersCalendar
                 Teacher selectedTeacher = comboBoxTeachers.SelectedItem as Teacher;
                 if (selectedTeacher == null)
                 {
+                    statusStripLabel.Text = "";
                     MessageBox.Show("Please select a teacher!", "Invalid teacher", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 selectedTeacher.Classes = ClassRepo.getClassesOfTeacher(selectedTeacher);
+                statusStripLabel.Text = "Displaying the calendar of professor " + selectedTeacher.FullName;
                 loadTeacherClasses(selectedTeacher.Classes);
             } catch (Exception ex)
             {
@@ -177,6 +182,100 @@ namespace TeachersCalendar
                     ClassRepo.addClass(uniClass, teacher);
                     teacher.Classes.Add(uniClass);
                     loadTeacherClasses(teacher.Classes);
+                }
+            }
+        }
+
+        private void createReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            createReport();
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            createReport();
+        }
+
+        private void createReport()
+        {
+            Teacher teacher = comboBoxTeachers.SelectedItem as Teacher;
+            if (teacher == null)
+            {
+                MessageBox.Show("Please select a teacher!", "Invalid teacher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                string fileName = "report_" + teacher.LastName + "_" + teacher.FirstName + ".txt";
+                using (StreamWriter sw = new StreamWriter(fileName))
+                {
+                    sw.WriteLine("******** Professor " + teacher.FullName + " calendar ********\n");
+                    if (teacher.Classes != null && teacher.Classes.Count > 0)
+                    {
+                        foreach (var clazz in teacher.Classes)
+                        {
+                            string toWriteFormat = "{0} in room {1} there will be an {2} class:\n   -Room capacity - {3}\n   -Subject description - {4}\n";
+                            string toWrite = string.Format(toWriteFormat, clazz.ClassTime.ToString(), clazz.Room.Name, clazz.Subject.Name, clazz.Room.Capacity, clazz.Subject.Description);
+                            sw.WriteLine(toWrite);
+                        }
+                    }
+                    else
+                    {
+                        sw.WriteLine(" - This professor does not have any classes scheduled! - ");
+                    }
+                    statusStripLabel.Text = "Report created!";
+                }
+            }
+        }
+
+        private void serializeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Teacher teacher = comboBoxTeachers.SelectedItem as Teacher;
+            if (teacher == null)
+            {
+                MessageBox.Show("Please select a teacher!", "Invalid teacher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if(saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using(FileStream file = File.Create(saveFileDialog.FileName))
+                {
+                    BinaryFormatter binaryFormatter = new BinaryFormatter();
+                    binaryFormatter.Serialize(file, teacher);
+                    statusStripLabel.Text = "Serialization successfull!";
+                }
+            }
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Alt && e.KeyCode == Keys.S)
+            {
+                createReport();
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Alt | Keys.S))
+            {
+                createReport();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void deserializeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if(openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using(FileStream fileStream = File.OpenRead(openFileDialog.FileName))
+                {
+                    BinaryFormatter binaryFormatter = new BinaryFormatter();
+                    Teacher placeholder = (Teacher)binaryFormatter.Deserialize(fileStream);
+                    Console.WriteLine(""); //used for debugging. deserialization does not make sense
                 }
             }
         }
