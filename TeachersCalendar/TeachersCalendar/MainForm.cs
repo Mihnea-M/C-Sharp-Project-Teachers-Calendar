@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TeachersCalendar.EditForms;
 using TeachersCalendar.Enums;
 using TeachersCalendar.Models;
 using TeachersCalendar.Repos;
@@ -278,6 +279,18 @@ namespace TeachersCalendar
                     Console.WriteLine(""); //used for debugging. deserialization does not make sense
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Teacher teacher = comboBoxTeachers.SelectedItem as Teacher;
+            if (teacher == null)
+            {
+                MessageBox.Show("Please select a teacher!", "Invalid teacher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            StatsForm statsForm = new StatsForm(teacher.Classes);
+            statsForm.ShowDialog();
         }
     }
 }

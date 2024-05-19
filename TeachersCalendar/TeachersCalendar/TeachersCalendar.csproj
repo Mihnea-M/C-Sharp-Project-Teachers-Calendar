@@ -63,6 +63,12 @@
     <Compile Include="EditForms\RoomForm.Designer.cs">
       <DependentUpon>RoomForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditForms\StatsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditForms\StatsForm.Designer.cs">
+      <DependentUpon>StatsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditForms\SubjectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditForms\RoomForm.resx">
       <DependentUpon>RoomForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditForms\StatsForm.resx">
+      <DependentUpon>StatsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditForms\SubjectForm.resx">
       <DependentUpon>SubjectForm.cs</DependentUpon>
