@@ -35,7 +35,19 @@ namespace TeachersCalendar.EditForms
         {
             nameTb.Text = Room.Name;
             capacityNumUpDown.Value = Room.Capacity;
-            hasComputersCheckBox.Checked = Room.HasComputers;
+            hasComputersCheckBox.Checked = !Room.HasComputers;
+        }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            if (cancelBtn.Text == "Cancel")
+            {
+                DialogResult = DialogResult.Cancel;
+            }
+            else if (cancelBtn.Text == "Delete")
+            {
+                DialogResult = DialogResult.No;
+            }
         }
     }
 }

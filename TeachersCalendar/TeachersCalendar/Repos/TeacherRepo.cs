@@ -45,12 +45,10 @@ namespace TeachersCalendar.Repos
                                 teacher.LastName = data.GetString(i);
                                 break;
                         }
-                        Console.WriteLine(data.GetValue(i));
                     }
                     list.Add(teacher);
                 }
                 data.Close();
-                connection.Close();
             }
 
             return list;
@@ -68,7 +66,6 @@ namespace TeachersCalendar.Repos
                 command.Parameters.AddWithValue("@lastName", teacher.LastName);
                 long id = (long)command.ExecuteScalar();
                 teacher.Id = (int)id;
-                connection.Close();
             }
         }
 
@@ -85,7 +82,6 @@ namespace TeachersCalendar.Repos
                 command.Parameters.AddWithValue("@lastname", teacher.LastName);
                 
                 command.ExecuteScalar();
-                connection.Close();
             }
         }
 
@@ -99,7 +95,6 @@ namespace TeachersCalendar.Repos
 
                 command.Parameters.AddWithValue("@id", teacher.Id);
                 command.ExecuteNonQuery();
-                connection.Close();
             }
         }
         

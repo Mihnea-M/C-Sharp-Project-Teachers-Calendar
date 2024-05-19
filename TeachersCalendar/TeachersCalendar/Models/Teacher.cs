@@ -11,7 +11,7 @@ namespace TeachersCalendar.Models
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        List<UniClass> Classes { get; set; }
+        public List<UniClass> Classes { get; set; }
 
         public Teacher()
         {

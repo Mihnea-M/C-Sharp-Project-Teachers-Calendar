@@ -36,14 +36,14 @@
             this.editTeacherBtn = new System.Windows.Forms.Button();
             this.deleteTeacherBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.mainFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mainFormBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.timeCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MondayCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TuesdayCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WednesdayCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ThursdayCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FridayCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mainFormBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mainFormBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.daySchedule)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainFormBindingSource1)).BeginInit();
@@ -64,14 +64,17 @@
             this.ThursdayCol,
             this.FridayCol});
             this.daySchedule.Location = new System.Drawing.Point(43, 131);
-            this.daySchedule.Margin = new System.Windows.Forms.Padding(2);
+            this.daySchedule.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.daySchedule.MultiSelect = false;
             this.daySchedule.Name = "daySchedule";
+            this.daySchedule.ReadOnly = true;
             this.daySchedule.RowHeadersVisible = false;
             this.daySchedule.RowHeadersWidth = 82;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.daySchedule.RowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.daySchedule.RowTemplate.Height = 33;
+            this.daySchedule.RowTemplate.Height = 53;
+            this.daySchedule.RowTemplate.ReadOnly = true;
+            this.daySchedule.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.daySchedule.Size = new System.Drawing.Size(1093, 223);
             this.daySchedule.TabIndex = 0;
             this.daySchedule.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.daySchedule_CellDoubleClick);
@@ -124,19 +127,13 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Select a teacher:";
             // 
-            // mainFormBindingSource
-            // 
-            this.mainFormBindingSource.DataSource = typeof(TeachersCalendar.MainForm);
-            // 
-            // mainFormBindingSource1
-            // 
-            this.mainFormBindingSource1.DataSource = typeof(TeachersCalendar.MainForm);
-            // 
             // timeCol
             // 
             this.timeCol.HeaderText = "Time interval";
+            this.timeCol.MinimumWidth = 10;
             this.timeCol.Name = "timeCol";
             this.timeCol.ReadOnly = true;
+            this.timeCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.timeCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.timeCol.Width = 90;
             // 
@@ -146,6 +143,7 @@
             this.MondayCol.MinimumWidth = 10;
             this.MondayCol.Name = "MondayCol";
             this.MondayCol.ReadOnly = true;
+            this.MondayCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.MondayCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.MondayCol.Width = 200;
             // 
@@ -155,6 +153,7 @@
             this.TuesdayCol.MinimumWidth = 10;
             this.TuesdayCol.Name = "TuesdayCol";
             this.TuesdayCol.ReadOnly = true;
+            this.TuesdayCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.TuesdayCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.TuesdayCol.Width = 200;
             // 
@@ -164,6 +163,7 @@
             this.WednesdayCol.MinimumWidth = 10;
             this.WednesdayCol.Name = "WednesdayCol";
             this.WednesdayCol.ReadOnly = true;
+            this.WednesdayCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.WednesdayCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.WednesdayCol.Width = 200;
             // 
@@ -173,6 +173,7 @@
             this.ThursdayCol.MinimumWidth = 10;
             this.ThursdayCol.Name = "ThursdayCol";
             this.ThursdayCol.ReadOnly = true;
+            this.ThursdayCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ThursdayCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ThursdayCol.Width = 200;
             // 
@@ -182,21 +183,30 @@
             this.FridayCol.MinimumWidth = 10;
             this.FridayCol.Name = "FridayCol";
             this.FridayCol.ReadOnly = true;
+            this.FridayCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.FridayCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.FridayCol.Width = 200;
+            // 
+            // mainFormBindingSource
+            // 
+            this.mainFormBindingSource.DataSource = typeof(TeachersCalendar.MainForm);
+            // 
+            // mainFormBindingSource1
+            // 
+            this.mainFormBindingSource1.DataSource = typeof(TeachersCalendar.MainForm);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1196, 514);
+            this.ClientSize = new System.Drawing.Size(1208, 510);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.deleteTeacherBtn);
             this.Controls.Add(this.editTeacherBtn);
             this.Controls.Add(this.addTeacherBtn);
             this.Controls.Add(this.comboBoxTeachers);
             this.Controls.Add(this.daySchedule);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MainForm";
             this.Text = "Teachers Calendar";
             this.Load += new System.EventHandler(this.MainForm_Load);

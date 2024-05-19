@@ -36,5 +36,17 @@ namespace TeachersCalendar.EditForms
             Subject.Name = nameTb.Text;
             Subject.Description = descriptionTb.Text;
         }
+
+        private void cancelBtn_Click(object sender, EventArgs e)
+        {
+            if(cancelBtn.Text == "Cancel")
+            {
+                   DialogResult = DialogResult.Cancel;
+            }
+            else if (cancelBtn.Text == "Delete")
+            {
+                DialogResult = DialogResult.No;
+            }
+        }
     }
 }

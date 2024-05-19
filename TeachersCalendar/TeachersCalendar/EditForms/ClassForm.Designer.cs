@@ -42,6 +42,7 @@
             this.editRoomButton = new System.Windows.Forms.Button();
             this.editSubjectButton = new System.Windows.Forms.Button();
             this.subjectInfoLabel = new System.Windows.Forms.Label();
+            this.roomInfoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.roomBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,12 +51,12 @@
             this.comboBoxRoom.DataSource = this.roomBindingSource;
             this.comboBoxRoom.DisplayMember = "Capacity";
             this.comboBoxRoom.FormattingEnabled = true;
-            this.comboBoxRoom.Location = new System.Drawing.Point(554, 160);
-            this.comboBoxRoom.Margin = new System.Windows.Forms.Padding(6);
+            this.comboBoxRoom.Location = new System.Drawing.Point(277, 83);
             this.comboBoxRoom.Name = "comboBoxRoom";
-            this.comboBoxRoom.Size = new System.Drawing.Size(238, 33);
+            this.comboBoxRoom.Size = new System.Drawing.Size(121, 21);
             this.comboBoxRoom.TabIndex = 4;
             this.comboBoxRoom.ValueMember = "Id";
+            this.comboBoxRoom.SelectedIndexChanged += new System.EventHandler(this.comboBoxRoom_SelectedIndexChanged);
             // 
             // roomBindingSource
             // 
@@ -64,10 +65,9 @@
             // roomLabel
             // 
             this.roomLabel.AutoSize = true;
-            this.roomLabel.Location = new System.Drawing.Point(432, 165);
-            this.roomLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.roomLabel.Location = new System.Drawing.Point(216, 86);
             this.roomLabel.Name = "roomLabel";
-            this.roomLabel.Size = new System.Drawing.Size(74, 25);
+            this.roomLabel.Size = new System.Drawing.Size(38, 13);
             this.roomLabel.TabIndex = 5;
             this.roomLabel.Text = "Room:";
             // 
@@ -75,20 +75,18 @@
             // 
             this.headerLabel.AutoSize = true;
             this.headerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.headerLabel.Location = new System.Drawing.Point(24, 60);
-            this.headerLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.headerLabel.Location = new System.Drawing.Point(12, 31);
             this.headerLabel.Name = "headerLabel";
-            this.headerLabel.Size = new System.Drawing.Size(194, 37);
+            this.headerLabel.Size = new System.Drawing.Size(98, 20);
             this.headerLabel.TabIndex = 6;
             this.headerLabel.Text = "headerLabel";
             // 
             // subjectLabel
             // 
             this.subjectLabel.AutoSize = true;
-            this.subjectLabel.Location = new System.Drawing.Point(24, 165);
-            this.subjectLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.subjectLabel.Location = new System.Drawing.Point(12, 86);
             this.subjectLabel.Name = "subjectLabel";
-            this.subjectLabel.Size = new System.Drawing.Size(90, 25);
+            this.subjectLabel.Size = new System.Drawing.Size(46, 13);
             this.subjectLabel.TabIndex = 8;
             this.subjectLabel.Text = "Subject:";
             // 
@@ -97,20 +95,18 @@
             this.comboBoxSubject.DataSource = this.roomBindingSource;
             this.comboBoxSubject.DisplayMember = "Capacity";
             this.comboBoxSubject.FormattingEnabled = true;
-            this.comboBoxSubject.Location = new System.Drawing.Point(146, 160);
-            this.comboBoxSubject.Margin = new System.Windows.Forms.Padding(6);
+            this.comboBoxSubject.Location = new System.Drawing.Point(73, 83);
             this.comboBoxSubject.Name = "comboBoxSubject";
-            this.comboBoxSubject.Size = new System.Drawing.Size(238, 33);
+            this.comboBoxSubject.Size = new System.Drawing.Size(121, 21);
             this.comboBoxSubject.TabIndex = 7;
             this.comboBoxSubject.ValueMember = "Id";
             this.comboBoxSubject.SelectedIndexChanged += new System.EventHandler(this.comboBoxSubject_SelectedIndexChanged);
             // 
             // addRoomBtn
             // 
-            this.addRoomBtn.Location = new System.Drawing.Point(437, 212);
-            this.addRoomBtn.Margin = new System.Windows.Forms.Padding(6);
+            this.addRoomBtn.Location = new System.Drawing.Point(218, 110);
             this.addRoomBtn.Name = "addRoomBtn";
-            this.addRoomBtn.Size = new System.Drawing.Size(208, 44);
+            this.addRoomBtn.Size = new System.Drawing.Size(104, 23);
             this.addRoomBtn.TabIndex = 9;
             this.addRoomBtn.Text = "Add new room";
             this.addRoomBtn.UseVisualStyleBackColor = true;
@@ -118,10 +114,9 @@
             // 
             // addSubjectBtn
             // 
-            this.addSubjectBtn.Location = new System.Drawing.Point(29, 212);
-            this.addSubjectBtn.Margin = new System.Windows.Forms.Padding(6);
+            this.addSubjectBtn.Location = new System.Drawing.Point(14, 110);
             this.addSubjectBtn.Name = "addSubjectBtn";
-            this.addSubjectBtn.Size = new System.Drawing.Size(205, 44);
+            this.addSubjectBtn.Size = new System.Drawing.Size(102, 23);
             this.addSubjectBtn.TabIndex = 10;
             this.addSubjectBtn.Text = "Add new subject";
             this.addSubjectBtn.UseVisualStyleBackColor = true;
@@ -129,32 +124,29 @@
             // 
             // okBtn
             // 
-            this.okBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okBtn.Location = new System.Drawing.Point(438, 346);
-            this.okBtn.Margin = new System.Windows.Forms.Padding(6);
+            this.okBtn.Location = new System.Drawing.Point(123, 227);
             this.okBtn.Name = "okBtn";
-            this.okBtn.Size = new System.Drawing.Size(158, 44);
+            this.okBtn.Size = new System.Drawing.Size(79, 23);
             this.okBtn.TabIndex = 11;
             this.okBtn.Text = "Ok";
             this.okBtn.UseVisualStyleBackColor = true;
+            this.okBtn.Click += new System.EventHandler(this.okBtn_Click);
             // 
             // cancelBtn
             // 
             this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelBtn.Location = new System.Drawing.Point(638, 346);
-            this.cancelBtn.Margin = new System.Windows.Forms.Padding(6);
+            this.cancelBtn.Location = new System.Drawing.Point(223, 227);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(158, 44);
+            this.cancelBtn.Size = new System.Drawing.Size(79, 23);
             this.cancelBtn.TabIndex = 12;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
             // 
             // editRoomButton
             // 
-            this.editRoomButton.Location = new System.Drawing.Point(654, 212);
-            this.editRoomButton.Margin = new System.Windows.Forms.Padding(6);
+            this.editRoomButton.Location = new System.Drawing.Point(327, 110);
             this.editRoomButton.Name = "editRoomButton";
-            this.editRoomButton.Size = new System.Drawing.Size(138, 44);
+            this.editRoomButton.Size = new System.Drawing.Size(69, 23);
             this.editRoomButton.TabIndex = 13;
             this.editRoomButton.Text = "Edit room";
             this.editRoomButton.UseVisualStyleBackColor = true;
@@ -162,10 +154,9 @@
             // 
             // editSubjectButton
             // 
-            this.editSubjectButton.Location = new System.Drawing.Point(246, 212);
-            this.editSubjectButton.Margin = new System.Windows.Forms.Padding(6);
+            this.editSubjectButton.Location = new System.Drawing.Point(123, 110);
             this.editSubjectButton.Name = "editSubjectButton";
-            this.editSubjectButton.Size = new System.Drawing.Size(138, 44);
+            this.editSubjectButton.Size = new System.Drawing.Size(69, 23);
             this.editSubjectButton.TabIndex = 14;
             this.editSubjectButton.Text = "Edit subject";
             this.editSubjectButton.UseVisualStyleBackColor = true;
@@ -174,18 +165,27 @@
             // subjectInfoLabel
             // 
             this.subjectInfoLabel.AutoSize = true;
-            this.subjectInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.subjectInfoLabel.Location = new System.Drawing.Point(36, 289);
-            this.subjectInfoLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.subjectInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.subjectInfoLabel.Location = new System.Drawing.Point(18, 150);
             this.subjectInfoLabel.Name = "subjectInfoLabel";
-            this.subjectInfoLabel.Size = new System.Drawing.Size(0, 37);
+            this.subjectInfoLabel.Size = new System.Drawing.Size(0, 16);
             this.subjectInfoLabel.TabIndex = 15;
+            // 
+            // roomInfoLabel
+            // 
+            this.roomInfoLabel.AutoSize = true;
+            this.roomInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.roomInfoLabel.Location = new System.Drawing.Point(216, 150);
+            this.roomInfoLabel.Name = "roomInfoLabel";
+            this.roomInfoLabel.Size = new System.Drawing.Size(0, 16);
+            this.roomInfoLabel.TabIndex = 16;
             // 
             // ClassForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 473);
+            this.ClientSize = new System.Drawing.Size(424, 281);
+            this.Controls.Add(this.roomInfoLabel);
             this.Controls.Add(this.subjectInfoLabel);
             this.Controls.Add(this.editSubjectButton);
             this.Controls.Add(this.editRoomButton);
@@ -198,7 +198,6 @@
             this.Controls.Add(this.headerLabel);
             this.Controls.Add(this.roomLabel);
             this.Controls.Add(this.comboBoxRoom);
-            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "ClassForm";
             this.Text = "ClassForm";
             this.Load += new System.EventHandler(this.ClassForm_Load);
@@ -222,5 +221,6 @@
         private System.Windows.Forms.Button editRoomButton;
         private System.Windows.Forms.Button editSubjectButton;
         private System.Windows.Forms.Label subjectInfoLabel;
+        private System.Windows.Forms.Label roomInfoLabel;
     }
 }

@@ -83,6 +83,26 @@ namespace TeachersCalendar.Repos
             }
         }
 
+        public static Subject getSubject(int id)
+        {
+            Subject subject = new Subject();
+            var query = "SELECT Id, Name, Description FROM Subject WHERE id = @id;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                var command = new SQLiteCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
 
+                var data = command.ExecuteReader(CommandBehavior.Default);
+                data.Read();
+                subject.Id = (int)(long)data["id"];
+                subject.Name = (string)data["Name"];    
+                subject.Description = (string)data["Description"];
+                
+                data.Close();
+            }
+
+            return subject;
+        }
     }
 }

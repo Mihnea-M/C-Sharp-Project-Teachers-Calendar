@@ -39,6 +39,30 @@ namespace TeachersCalendar.Repos
             return list;
         }
 
+        public static Room getRoom(int id)
+        {
+            var query = "SELECT Id, Name, Capacity, HasComputers FROM Room WHERE Id = @id;";
+            Room room = new Room();
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                var command = new SQLiteCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                var data = command.ExecuteReader(CommandBehavior.CloseConnection);
+                data.Read();
+                room.Id = (int)(long)data["Id"];
+                room.Name = (string)data["Name"];
+                room.Capacity = (int)(long)data["Capacity"];
+                room.HasComputers = (long)data["HasComputers"] == 0 ? true : false;
+                    
+                data.Close();
+            }
+            return room;
+
+        }
+
         internal static void addRoom(Room room)
         {
             var query = "INSERT INTO Room (Name, Capacity, HasComputers) values (@name, @capacity, @hascomputers); SELECT last_insert_rowid();";

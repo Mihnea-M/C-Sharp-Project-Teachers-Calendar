@@ -39,49 +39,45 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 141);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Location = new System.Drawing.Point(12, 73);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 25);
+            this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 12;
             this.label2.Text = "Description:";
             // 
             // nameTb
             // 
-            this.nameTb.Location = new System.Drawing.Point(185, 45);
-            this.nameTb.Margin = new System.Windows.Forms.Padding(6);
+            this.nameTb.Location = new System.Drawing.Point(92, 23);
             this.nameTb.Name = "nameTb";
-            this.nameTb.Size = new System.Drawing.Size(226, 31);
+            this.nameTb.Size = new System.Drawing.Size(115, 20);
             this.nameTb.TabIndex = 11;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(75, 51);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(38, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 25);
+            this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 10;
             this.label1.Text = "Name:";
             // 
             // cancelBtn
             // 
             this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelBtn.Location = new System.Drawing.Point(248, 222);
-            this.cancelBtn.Margin = new System.Windows.Forms.Padding(6);
+            this.cancelBtn.Location = new System.Drawing.Point(124, 115);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(150, 44);
+            this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 9;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
             // okBtn
             // 
             this.okBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okBtn.Location = new System.Drawing.Point(64, 222);
-            this.okBtn.Margin = new System.Windows.Forms.Padding(6);
+            this.okBtn.Location = new System.Drawing.Point(32, 115);
             this.okBtn.Name = "okBtn";
-            this.okBtn.Size = new System.Drawing.Size(150, 44);
+            this.okBtn.Size = new System.Drawing.Size(75, 23);
             this.okBtn.TabIndex = 8;
             this.okBtn.Text = "Save";
             this.okBtn.UseVisualStyleBackColor = true;
@@ -89,23 +85,23 @@
             // 
             // descriptionTb
             // 
-            this.descriptionTb.Location = new System.Drawing.Point(185, 141);
-            this.descriptionTb.Margin = new System.Windows.Forms.Padding(6);
+            this.descriptionTb.Location = new System.Drawing.Point(92, 73);
             this.descriptionTb.Name = "descriptionTb";
-            this.descriptionTb.Size = new System.Drawing.Size(226, 31);
+            this.descriptionTb.Size = new System.Drawing.Size(115, 20);
             this.descriptionTb.TabIndex = 13;
             // 
             // SubjectForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 342);
+            this.ClientSize = new System.Drawing.Size(226, 178);
             this.Controls.Add(this.descriptionTb);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nameTb);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.okBtn);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "SubjectForm";
             this.Text = "SubjectForm";
             this.Load += new System.EventHandler(this.SubjectForm_Load);

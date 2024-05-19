@@ -59,16 +59,32 @@ namespace TeachersCalendar
 
         private void comboBoxTeachers_SelectedIndexChanged(object sender, EventArgs e)
         {
+            daySchedule.Rows.Clear();
+            loadDayScheduleTimes();
             try
             {
                 Teacher selectedTeacher = comboBoxTeachers.SelectedItem as Teacher;
                 if (selectedTeacher == null)
-                    // TODO 
+                {
+                    MessageBox.Show("Please select a teacher!", "Invalid teacher", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                    //MessageBox.Show("You clicked " + selectedTeacher.Id);
+                }
+                selectedTeacher.Classes = ClassRepo.getClassesOfTeacher(selectedTeacher);
+                loadTeacherClasses(selectedTeacher.Classes);
             } catch (Exception ex)
             {
                 return ;
+            }
+        }
+
+        private void loadTeacherClasses(List<UniClass> classes)
+        {
+            foreach(UniClass clazz in classes)
+            {
+                int rowIndex = clazz.ClassTime.TimeIndex;
+                int colIndex = clazz.ClassTime.DayIndex;
+                string classDesc = clazz.Subject.Name + " - " + clazz.Room.Name;
+                daySchedule.Rows[rowIndex].Cells[colIndex].Value = classDesc;
             }
         }
 
@@ -125,14 +141,44 @@ namespace TeachersCalendar
 
         private void daySchedule_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            Teacher teacher = comboBoxTeachers.SelectedItem as Teacher;
+            if (teacher == null)
+            {
+                MessageBox.Show("Please select a teacher!", "Invalid teacher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (e.ColumnIndex == 0 || e.RowIndex == -1)
             {
                 return;
             }
-            UniClass uniClass = new UniClass();
-            EditForms.ClassForm classForm = new EditForms.ClassForm(uniClass, e.ColumnIndex, e.RowIndex);
-            classForm.ShowDialog();
-            
+            UniClass uniClass = null;
+            foreach (var clazz in teacher.Classes) 
+            {
+                if (clazz.ClassTime.TimeIndex == e.RowIndex && clazz.ClassTime.DayIndex == e.ColumnIndex)
+                {
+                    uniClass = clazz;
+                }
+            }
+            if (uniClass != null)
+            {
+                EditForms.ClassForm classForm = new EditForms.ClassForm(uniClass, uniClass.Room, uniClass.Subject);
+                if (classForm.ShowDialog() == DialogResult.OK)
+                {
+                    ClassRepo.updateClass(uniClass, teacher);
+                    loadTeacherClasses(teacher.Classes);
+                }
+            }
+            else
+            {
+                uniClass = new UniClass();
+                EditForms.ClassForm classForm = new EditForms.ClassForm(uniClass, e.ColumnIndex, e.RowIndex);
+                if (classForm.ShowDialog() == DialogResult.OK)
+                {
+                    ClassRepo.addClass(uniClass, teacher);
+                    teacher.Classes.Add(uniClass);
+                    loadTeacherClasses(teacher.Classes);
+                }
+            }
         }
     }
 }

@@ -10,9 +10,9 @@ namespace TeachersCalendar.Repos
 {
     internal class ClassTimeRepo
     {
-        private string connectionString = Properties.Settings.Default.connectionString;
+        private static string connectionString = Properties.Settings.Default.connectionString;
 
-        public ClassTime getClassTime(int dayIndex, int timeIndex)
+        public static ClassTime getClassTime(int dayIndex, int timeIndex)
         {
             var query = "SELECT Id FROM ClassTime WHERE DayIndex = @dayindex AND TimeIndex = @timeindex";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -30,7 +30,7 @@ namespace TeachersCalendar.Repos
             }
         }
 
-        public ClassTime getClassTime(int id)
+        public static ClassTime getClassTime(int id)
         {
             var query = "SELECT DayIndex, TimeIndex FROM ClassTime WHERE Id = @id";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -43,12 +43,12 @@ namespace TeachersCalendar.Repos
                 data.Read();
                 int dayIndex = (int)(long)data["DayIndex"];
                 int timeIndex = (int)(long)data["TimeIndex"];
-                connection.Close();
+                data.Close();
                 return new ClassTime(id, dayIndex, timeIndex);
             }
         }
 
-        private void addClassTime(ClassTime classTime)
+        private static void addClassTime(ClassTime classTime)
         {
             var query = "insert into ClassTime (DayIndex, TimeIndex) values (@dayindex, @timeindex); SELECT last_insert_rowid();";
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))

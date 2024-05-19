@@ -15,7 +15,6 @@ namespace TeachersCalendar.EditForms
 {
     public partial class ClassForm : Form
     {
-        ClassTimeRepo classTimeRepo = new ClassTimeRepo();
         private ClassTime ClassTime {  get; set; }
         public UniClass UniClass { get; set; }
 
@@ -25,13 +24,8 @@ namespace TeachersCalendar.EditForms
         public ClassForm(UniClass uniClass, int dayIndex, int timeIndex)
         {
             this.UniClass = uniClass;
-            this.UniClass.ClassTime = classTimeRepo.getClassTime(dayIndex, timeIndex);
+            this.ClassTime = ClassTimeRepo.getClassTime(dayIndex, timeIndex);
             InitializeComponent();
-        }
-
-        private void ClassForm_Load(object sender, EventArgs e)
-        {
-            this.headerLabel.Text = "Insert a new class at " + UniClass.ClassTime.getTime() + " on " + UniClass.ClassTime.getDay();
 
             loadRooms();
             loadSubjects();
@@ -39,7 +33,28 @@ namespace TeachersCalendar.EditForms
             comboBoxSubject.SelectedIndex = -1;
             comboBoxRoom.SelectedIndex = -1;
 
+        }
+
+        public ClassForm(UniClass uniClass, Room room, Subject subject)
+        {
+            this.UniClass = uniClass;
+            this.ClassTime = uniClass.ClassTime;
+            InitializeComponent();
+
+
+            loadRooms();
+            loadSubjects();
+
+            comboBoxSubject.SelectedValue = subject.Id;
+            comboBoxRoom.SelectedValue = room.Id;
+        }
+
+        private void ClassForm_Load(object sender, EventArgs e)
+        {
+            this.headerLabel.Text = "Insert a new class at " + ClassTime.getTime() + " on " + ClassTime.getDay();
+
             showSubjectInfo();
+            showRoomInfo();
         }
 
         public void loadRooms()
@@ -79,7 +94,10 @@ namespace TeachersCalendar.EditForms
             {
                 RoomRepo.addRoom(room);
                 loadRooms();
+                comboBoxRoom.SelectedValue = room.Id;
+                
             }
+            showRoomInfo();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -99,8 +117,9 @@ namespace TeachersCalendar.EditForms
             {
                 RoomRepo.updateRoom(room);
                 loadRooms();
+                comboBoxRoom.SelectedValue = room.Id;
             }
-            else
+            else if (roomForm.DialogResult == DialogResult.No)
             {
                 RoomRepo.deleteRoom(room);
                 loadRooms();
@@ -122,6 +141,20 @@ namespace TeachersCalendar.EditForms
             
         }
 
+        public void showRoomInfo()
+        {
+            this.roomInfoLabel.Text = string.Empty;
+           Room room = comboBoxRoom.SelectedItem as Room;
+            if (room != null)
+            {
+                this.roomInfoLabel.Text = "Room info:\nCapacity: " + room.Capacity + (!room.HasComputers ? "\nRoom has computers": "\nRoom does not have computers");
+            }
+            else
+            {
+                this.roomInfoLabel.Text = "";
+            }
+        }
+
         private void addSubjectBtn_Click(object sender, EventArgs e)
         {
             Subject subject = new Subject();
@@ -132,6 +165,7 @@ namespace TeachersCalendar.EditForms
             {
                 SubjectRepo.addSubject(subject);
                 loadSubjects();
+                comboBoxSubject.SelectedValue = subject.Id;
             }
         }
 
@@ -153,8 +187,9 @@ namespace TeachersCalendar.EditForms
             {
                 SubjectRepo.updateSubject(subject);
                 loadSubjects();
+                comboBoxSubject.SelectedValue = subject.Id;
             }
-            else
+            else if (subjectForm.DialogResult == DialogResult.No)
             {
                 SubjectRepo.deleteSubject(subject);
                 loadSubjects();
@@ -164,6 +199,36 @@ namespace TeachersCalendar.EditForms
         private void comboBoxSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             showSubjectInfo();
+        }
+
+        private void okBtn_Click(object sender, EventArgs e)
+        {
+            Subject subject = comboBoxSubject.SelectedItem as Subject;
+            Room room = comboBoxRoom.SelectedItem as Room;
+            if (subject == null && room == null) 
+            {
+                MessageBox.Show("Invalid subject and room!", "Invalid data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (subject == null)
+            {
+                MessageBox.Show("Please select a subject!", "Invalid subject", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (room == null)
+            {
+                MessageBox.Show("Please select a room!", "Invalid room", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            this.UniClass.Subject = comboBoxSubject.SelectedItem as Subject;
+            this.UniClass.Room = comboBoxRoom.SelectedItem as Room;
+            this.UniClass.ClassTime = ClassTime;
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private void comboBoxRoom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            showRoomInfo();
         }
     }
 }
