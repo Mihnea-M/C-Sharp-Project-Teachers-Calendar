@@ -276,7 +276,7 @@ namespace TeachersCalendar
                 {
                     BinaryFormatter binaryFormatter = new BinaryFormatter();
                     Teacher placeholder = (Teacher)binaryFormatter.Deserialize(fileStream);
-                    Console.WriteLine(""); //used for debugging. deserialization does not make sense
+                    Console.WriteLine(""); //used for debugging. deserialization does not make sense in current context
                 }
             }
         }
@@ -287,6 +287,11 @@ namespace TeachersCalendar
             if (teacher == null)
             {
                 MessageBox.Show("Please select a teacher!", "Invalid teacher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (teacher.Classes == null || teacher.Classes.Count == 0)
+            {
+                MessageBox.Show("No classes available!", "Invalid classes", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             StatsForm statsForm = new StatsForm(teacher.Classes);
